@@ -17,6 +17,7 @@ public:
     std::vector<Node*> getNeighbors(Node* node);
     void printGrid() const;
     void printPath(const std::vector<Node*>& path) const;
+	void printSteps(const std::vector<Node*>& path) const;
 };
 
 #endif

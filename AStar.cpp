@@ -100,4 +100,8 @@ std::vector<Node*> AStar::findPath(Grid& grid, Point start, Point goal) {
             }
         }
     }
+
+    std::cout << "No path found from (" << start.x << "," << start.y
+        << ") to (" << goal.x << "," << goal.y << ")" << std::endl;
+    return {};
 }

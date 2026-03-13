@@ -107,3 +107,11 @@ void Grid::printPath(const std::vector<Node*>& path) const {
         std::cout << std::endl;
     }
 }
+
+void Grid::printSteps(const std::vector<Node*>& path) const {
+    for (auto* node : path) {
+        std::cout << "(" << node->pos.x << ", " << node->pos.y
+            << ") [f=" << node->f << " g=" << node->g << " h=" << node->h << "]"
+            << std::endl;
+    }
+}
