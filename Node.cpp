@@ -1,11 +1,11 @@
 #include "Node.h"
 
 Node::Node()
-    : pos({ 0, 0 }), g(0), h(0), f(0), walkable(true), parent(nullptr) {
+    : pos({ 0, 0 }), g(0), h(0), f(0), cost(1), walkable(true), parent(nullptr) {
 }
 
-Node::Node(Point pos, bool walkable)
-    : pos(pos), g(0), h(0), f(0), walkable(walkable), parent(nullptr) {
+Node::Node(Point pos, bool walkable, int cost)
+    : pos(pos), g(0), h(0), f(0), cost(cost), walkable(walkable), parent(nullptr) {
 }
 
 void Node::calculateF() {

@@ -10,5 +10,5 @@ void TestOutOfBounds();
 void TestStartOnObstacle();
 void TestGoalOnObstacle();
 void TestLargerGrid();
-
+void TestWeightedGrid();
 #endif

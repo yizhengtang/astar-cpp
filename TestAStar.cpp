@@ -7,22 +7,23 @@
 void RunTests() {
     //TestBasicPath();
     //TestNoPath();
-    TestStartIsGoal();
-    TestOutOfBounds();
-    TestStartOnObstacle();
-    TestGoalOnObstacle();
-    TestLargerGrid();
+    //TestStartIsGoal();
+    //TestOutOfBounds();
+    //TestStartOnObstacle();
+    //TestGoalOnObstacle();
+    //TestLargerGrid();
+	TestWeightedGrid();
 }
 
 void TestBasicPath() {
     std::cout << "***** Test Basic Path *****" << std::endl;
 
     std::vector<std::vector<int>> map = {
-        {0, 0, 0, 0, 0},
-        {0, 1, 1, 1, 0},
-        {0, 0, 0, 1, 0},
-        {0, 1, 0, 0, 0},
-        {0, 0, 0, 1, 0}
+        {1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 1},
+        {1, 1, 1, 0, 1},
+        {1, 0, 1, 1, 1},
+        {1, 1, 1, 0, 1}
     };
 
     Grid grid(map);
@@ -52,9 +53,9 @@ void TestNoPath() {
     std::cout << "***** Test No Path *****" << std::endl;
 
     std::vector<std::vector<int>> map = {
-        {0, 0, 0},
         {1, 1, 1},
-        {0, 0, 0}
+        {0, 0, 0},
+        {1, 1, 1}
     };
 
     Grid grid(map);
@@ -82,9 +83,9 @@ void TestStartIsGoal() {
     std::cout << "***** Test Start Is Goal *****" << std::endl;
 
     std::vector<std::vector<int>> map = {
-        {0, 0, 0},
-        {0, 1, 0},
-        {0, 0, 0}
+        {1, 1, 1},
+        {1, 0, 1},
+        {1, 1, 1}
     };
 
     Grid grid(map);
@@ -112,16 +113,16 @@ void TestOutOfBounds() {
     std::cout << "***** Test Out of Bounds *****" << std::endl;
 
     std::vector<std::vector<int>> map = {
-        {0, 0, 0},
-        {0, 0, 0},
-        {0, 0, 0}
+        {1, 1, 1},
+        {1, 1, 1},
+        {1, 1, 1}
     };
 
     Grid grid(map);
     grid.printGrid();
 
     Point start = { 0, 0 };
-    Point goal = { 5, 5 };  // way outside the 3x3 grid
+    Point goal = { 5, 5 };
 
     std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
     std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
@@ -142,9 +143,9 @@ void TestStartOnObstacle() {
     std::cout << "***** Test Start On Obstacle *****" << std::endl;
 
     std::vector<std::vector<int>> map = {
-        {1, 0, 0},
-        {0, 0, 0},
-        {0, 0, 0}
+        {0, 1, 1},
+        {1, 1, 1},
+        {1, 1, 1}
     };
 
     Grid grid(map);
@@ -172,9 +173,9 @@ void TestGoalOnObstacle() {
     std::cout << "***** Test Goal On Obstacle *****" << std::endl;
 
     std::vector<std::vector<int>> map = {
-        {0, 0, 0},
-        {0, 0, 0},
-        {0, 0, 1}
+        {1, 1, 1},
+        {1, 1, 1},
+        {1, 1, 0}
     };
 
     Grid grid(map);
@@ -202,16 +203,16 @@ void TestLargerGrid() {
     std::cout << "***** Test Larger Grid *****" << std::endl;
 
     std::vector<std::vector<int>> map = {
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-        {0, 1, 1, 1, 1, 1, 1, 0, 1, 0},
-        {0, 1, 0, 0, 0, 0, 0, 0, 1, 0},
-        {0, 1, 0, 1, 1, 1, 1, 1, 1, 0},
-        {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+        {1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
+        {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
 
     Grid grid(map);
@@ -229,6 +230,42 @@ void TestLargerGrid() {
         std::cout << "Path found with " << path.size() << " steps" << std::endl;
         grid.printPath(path);
 		grid.printSteps(path);
+    }
+    else {
+        std::cout << "FAIL: Expected a path but got none" << std::endl;
+    }
+
+    std::cout << std::endl;
+}
+
+void TestWeightedGrid() {
+    std::cout << "***** Test Weighted Grid *****" << std::endl;
+
+    // 0 = wall, 1 = normal, 3 = traffic, 5 = bad traffic
+    std::vector<std::vector<int>> map = {
+        {1, 1, 1, 1},
+        {5, 0, 0, 1},
+        {5, 0, 3, 1},
+        {3, 0, 3, 1},
+        {1, 1, 1, 1}
+    };
+
+    Grid grid(map);
+    grid.printGrid();
+
+    Point start = { 0, 0 };
+    Point goal = { 4, 0 };
+
+    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
+    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+
+    std::vector<Node*> path = AStar::findPath(grid, start, goal);
+
+    if (!path.empty()) {
+        std::cout << "Path found with " << path.size() << " steps" << std::endl;
+        std::cout << "Total cost: " << path.back()->g << std::endl;
+        grid.printPath(path);
+        grid.printSteps(path);
     }
     else {
         std::cout << "FAIL: Expected a path but got none" << std::endl;

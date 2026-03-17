@@ -85,7 +85,9 @@ std::vector<Node*> AStar::findPath(Grid& grid, Point start, Point goal) {
                 continue;  // already fully explored, skip
             }
 
-            int tentativeG = current->g + 1;  // each step costs 1
+            //the tentative g score is the g score of the current node plus the cost to move to the neighbor.
+            //Since the terrain has different movement cost, it is not jsut adding 1, but instead it addes the cost to move to the neighbor code.
+            int tentativeG = current->g + neighbor->cost;  
 
             if (!openSet.count(neighbor) || tentativeG < neighbor->g) {
                 neighbor->parent = current;
@@ -105,3 +107,4 @@ std::vector<Node*> AStar::findPath(Grid& grid, Point start, Point goal) {
         << ") to (" << goal.x << "," << goal.y << ")" << std::endl;
     return {};
 }
+

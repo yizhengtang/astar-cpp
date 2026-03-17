@@ -15,7 +15,11 @@ Grid::Grid(const std::vector<std::vector<int>>& map) {
     for (int i = 0; i < rows; i++) {
         nodes[i].resize(cols);
         for (int j = 0; j < cols; j++) {
-            nodes[i][j] = Node(Point{ i, j }, map[i][j] == 0);
+            //Here I modified the normal algorithm, it now also consider the movement cost of the terrain.
+			//If the cell is walkable, it will use the cost from the map, otherwise it will set the cost to 0 for obstacles.
+            bool walkable = map[i][j] > 0;
+			int cost = walkable ? map[i][j] : 0;
+            nodes[i][j] = Node(Point{ i, j }, walkable, cost);
         }
     }
 }
@@ -65,11 +69,14 @@ std::vector<Node*> Grid::getNeighbors(Node* node) {
 void Grid::printGrid() const {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            if (nodes[i][j].walkable) {
+            if (!nodes[i][j].walkable) {
+                std::cout << "# ";
+            }
+            else if (nodes[i][j].cost == 1) {
                 std::cout << ". ";
             }
             else {
-                std::cout << "# ";
+                std::cout << nodes[i][j].cost << " ";
             }
         }
         std::cout << std::endl;

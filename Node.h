@@ -8,12 +8,14 @@ public:
     Point pos;
     int g;             // cost from start to this node
     int h;             // heuristic (estimated cost to goal)
-    int f;             // total cost: g + h
+    int f;             // total cost: g + h + cost
+	int cost;          // terrain cost
     bool walkable;
     Node* parent;
 
     Node();
-    Node(Point pos, bool walkable);
+    //I added a new parameter to the constructor which is the cost of movement in the terrain, the = 1 means that if the cost is not specified it will be 1.
+    Node(Point pos, bool walkable, int cost = 1);
 
     void calculateF();
 
