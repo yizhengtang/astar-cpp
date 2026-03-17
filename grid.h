@@ -18,6 +18,8 @@ public:
     void printGrid() const;
     void printPath(const std::vector<Node*>& path) const;
 	void printSteps(const std::vector<Node*>& path) const;
+
+    friend std::ostream& operator<<(std::ostream& os, const Grid& grid);
 };
 
 #endif

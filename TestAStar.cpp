@@ -5,13 +5,13 @@
 #include "AStar.h"
 
 void RunTests() {
-    //TestBasicPath();
-    //TestNoPath();
-    //TestStartIsGoal();
-    //TestOutOfBounds();
-    //TestStartOnObstacle();
-    //TestGoalOnObstacle();
-    //TestLargerGrid();
+    TestBasicPath();
+    TestNoPath();
+    TestStartIsGoal();
+    TestOutOfBounds();
+    TestStartOnObstacle();
+    TestGoalOnObstacle();
+    TestLargerGrid();
 	TestWeightedGrid();
 }
 
@@ -27,13 +27,13 @@ void TestBasicPath() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };
     Point goal = { 4, 4 };
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 
@@ -59,13 +59,13 @@ void TestNoPath() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };
     Point goal = { 2, 2 };
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 
@@ -89,13 +89,13 @@ void TestStartIsGoal() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };
     Point goal = { 0, 0 };
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 
@@ -119,13 +119,13 @@ void TestOutOfBounds() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };
     Point goal = { 5, 5 };
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 
@@ -149,13 +149,13 @@ void TestStartOnObstacle() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };  // this is an obstacle
     Point goal = { 2, 2 };
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 
@@ -179,13 +179,13 @@ void TestGoalOnObstacle() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };
     Point goal = { 2, 2 };  // this is an obstacle
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 
@@ -216,13 +216,13 @@ void TestLargerGrid() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };
     Point goal = { 9, 9 };
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 
@@ -251,13 +251,13 @@ void TestWeightedGrid() {
     };
 
     Grid grid(map);
-    grid.printGrid();
+    std::cout << grid << std::endl;
 
     Point start = { 0, 0 };
     Point goal = { 4, 0 };
 
-    std::cout << "Start: (" << start.x << ", " << start.y << ")" << std::endl;
-    std::cout << "Goal: (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "Start: " << start << std::endl;
+    std::cout << "Goal: " << goal << std::endl;
 
     std::vector<Node*> path = AStar::findPath(grid, start, goal);
 

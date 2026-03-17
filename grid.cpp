@@ -122,3 +122,21 @@ void Grid::printSteps(const std::vector<Node*>& path) const {
             << std::endl;
     }
 }
+
+std::ostream& operator<<(std::ostream& os, const Grid& grid) {
+    for (int i = 0; i < grid.rows; i++) {
+        for (int j = 0; j < grid.cols; j++) {
+            if (!grid.nodes[i][j].walkable) {
+                os << "# ";
+            }
+            else if (grid.nodes[i][j].cost == 1) {
+                os << ". ";
+            }
+            else {
+                os << grid.nodes[i][j].cost << " ";
+            }
+        }
+        os << std::endl;
+    }
+    return os;
+}
