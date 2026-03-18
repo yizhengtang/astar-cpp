@@ -112,7 +112,7 @@ The grid is 2D, so every position requires two coordinates. Without a dedicated 
  
 Without Point:
 ```cpp
-int distance(int x1, int y1, int x2, int y2);  // which pair is start? which is goal?
+int distance(int x1, int y1, int x2, int y2);
 ```
  
 With Point:
@@ -170,8 +170,8 @@ std::ostream& operator<<(std::ostream& os, const Point& p) {
 ManhattanDistance takes two Points, reads their x and y, does maths, and returns a number. It has no concept of nodes, grids, or pathfinding. Its entire world is two positions and the distance between them — that is why it belongs with Point.
  
 Manhattan distance is the sum of the absolute differences of coordinates. It is called "Manhattan" because it measures distance as if walking along a city grid — only horizontal and vertical moves, no diagonals. For a grid with 4-directional movement, Manhattan distance gives the exact minimum number of steps assuming no obstacles. This makes it an *admissible heuristic* — it never overestimates the true cost, which guarantees A* finds the optimal path [2].
- 
-![Manhattan Distance Example](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/220px-Manhattan_distance.svg.png)
+
+![Manhattan Distance](images/manhattan_distance.png)
  
 ### Testing
  
@@ -514,13 +514,8 @@ void TestBasicPath() {
 ```
  
 Output:
-```
-S . . . .
-* # # # .
-* * * # .
-. # * * *
-. . . # G
-```
+
+![Test Basic Path](images/test_basic_path.png)
  
 **TestNoPath** — a wall completely blocks the grid. A* should exhaust the open list and return empty.
  
