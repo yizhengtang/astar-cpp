@@ -538,46 +538,50 @@ Output:
 ---
  
 ## Improvements
+
+Right now I got the A star working, and I decided to work on some improvements to make the project better.
  
 ### Weighted Graphs
+
+The first thing I do is to add in the weighted graphs, it is mentioned in the rubric.
  
-The original algorithm treated every step equally — each move costs 1. A weighted graph means different terrain has different costs, elevating A* from finding the "shortest" path to finding the "best" path.
- 
-This is directly analogous to real-world applications like Google Maps or Waze. When traffic is heavy on a shorter route, the algorithm picks a longer but faster route. In my implementation:
- 
-```
-0 = wall (impassable)
-1 = normal terrain (cost 1)
-3 = traffic (cost 3)
-5 = heavy traffic (cost 5)
-```
- 
-**The changes required:**
- 
-1. Added a `cost` field to Node
-2. Updated the Grid constructor to read cost from the map values
-3. Changed one line in AStar: `int tentativeG = current->g + neighbor->cost`
-4. Updated printGrid to display terrain costs
+Right now every step costs 1, a weighted graphs means different terrain has different costs.
+
+Here is my thought, this is an improve that elevates the normal A star from just finding the shortest path, to an algorithm that actually finds the "best" path.
+
+The first thing I think of is applications like google maps, waze. Where they will find the best path, instead of the shortest path, the best path can be differ from various conditions, for example when the traffic is heavy, the algorithm will pick another route, even if it is not the shortest route, but it is the fastest route.
+
+The current algorithm I have, there is no "traffic" on the map, so the algorithm will pick the nearest path using the lowest f cost.
+
+I am thinking of adding a new "traffic" cost, which will change the algorithm from just "f = g + h" into "f = g + h + cost"
+So now the algorithm will include the "traffic" cost into consideration in terms of finding the best path.
+
+To apply this new implementation, the first thing I have to do is to add a new **cost** into the **Node Class**.
+
+<first image>
+
+Then I have to update the constructors to include the **cost** field.
+
+<second image>
+
+MOving on to the Grid.cpp, I updated the constructor to read the weighs.
+
+<third image>
+
+So now it is no longer just tracking if it is walkable, but also it will track the cost to walk to that node.
+**BUT there is a change to my original algorithm, in the walkable = map[i][j] > 0, now everything changes into "0 is obstacle, anything greater than 0 is walkable with that value as cost."**
+**This is something I need to change in my original tests, since in my original tests I have 0 as path and 1 as obstacle.**
+
+Then lastly in my Astar.cpp, in the findPath function, I updated the **tentativeG** value, the old tentativeG is just the **current g plus 1**, because previously I didn’t have the terrain cost, so each step the g will be just + 1, now after the terrain cost is added, **it will have to add the "cost to that node" instead**.
+
+<fourth image>
+
+To test this, I added a new test case to test the weighted grid:
  
 **Test case — weighted grid:**
-```cpp
-std::vector<std::vector<int>> map = {
-    {1, 1, 1, 1},
-    {5, 0, 0, 1},
-    {5, 0, 3, 1},
-    {3, 0, 3, 1},
-    {1, 1, 1, 1}
-};
-```
- 
-```
-. . . .
-5 # # .
-5 # 3 .
-3 # 3 .
-. . . .
-```
- 
+
+ <test iamge>
+  
 **Result:**
 ```
 S * * *
