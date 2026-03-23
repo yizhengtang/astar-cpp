@@ -500,40 +500,47 @@ Following the testing pattern from the Matrix class project, I created a dedicat
  
 **TestBasicPath** — the happy path. Verifies A* finds a valid path on a standard grid with obstacles.
  
-```cpp
-void TestBasicPath() {
-    std::vector<std::vector<int>> map = {
-        {1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 1},
-        {1, 1, 1, 0, 1},
-        {1, 0, 1, 1, 1},
-        {1, 1, 1, 0, 1}
-    };
-    // Start: (0,0), Goal: (4,4)
-}
-```
- 
 Output:
 
 ![Test Basic Path](images/test_basic_path.png)
  
 **TestNoPath** — a wall completely blocks the grid. A* should exhaust the open list and return empty.
- 
-```
-. . .
-# # #
-. . .
-```
+
+Output:
+
+![Test No Path](images/test_no_path.png)
  
 **TestStartIsGoal** — an edge case where start equals goal. A* should immediately return a path with one node.
+
+Output:
+
+![Test Start Is Goal](images/test_start_is_goal.png)
  
 **TestOutOfBounds** — goal is set to (5,5) on a 3×3 grid. The validation check should catch this and return empty.
+
+Output:
+
+![Test Out of Bounds](images/test_out_of_bounds.png)
  
 **TestStartOnObstacle / TestGoalOnObstacle** — start or goal is placed on a wall. The validation should reject both cases.
+
+Output:
+
+![Test Start On Obstacle](images/test_start_on_obstacle.png)
+
+![Test Goal On Obstacle](images/test_goal_on_obstacle.png)
  
 **TestLargerGrid** — a 10×10 maze-like grid that forces A* to navigate through winding corridors. Stress tests the algorithm on a more complex map.
+
+Output:
+
+![Test LargerGrid](images/test_larger_grid.png)
  
 **TestWeightedGrid** — tests the weighted graph implementation with terrain costs of 1, 3, and 5.
+
+Output:
+
+![Test Weighted Grid](images/test_weighted_grid.png)
  
 ---
  
@@ -558,15 +565,15 @@ So now the algorithm will include the "traffic" cost into consideration in terms
 
 To apply this new implementation, the first thing I have to do is to add a new **cost** into the **Node Class**.
 
-<first image>
+![Node Class](images/weighted_first.png)
 
 Then I have to update the constructors to include the **cost** field.
 
-<second image>
+![Node Class](images/weighted_second.png)
 
 MOving on to the Grid.cpp, I updated the constructor to read the weighs.
 
-<third image>
+![Grid](images/weighted_third.png)
 
 So now it is no longer just tracking if it is walkable, but also it will track the cost to walk to that node.
 **BUT there is a change to my original algorithm, in the walkable = map[i][j] > 0, now everything changes into "0 is obstacle, anything greater than 0 is walkable with that value as cost."**
@@ -574,13 +581,13 @@ So now it is no longer just tracking if it is walkable, but also it will track t
 
 Then lastly in my Astar.cpp, in the findPath function, I updated the **tentativeG** value, the old tentativeG is just the **current g plus 1**, because previously I didn’t have the terrain cost, so each step the g will be just + 1, now after the terrain cost is added, **it will have to add the "cost to that node" instead**.
 
-<fourth image>
+![Cost to specific node](images/weighted_fourth.png)
 
 To test this, I added a new test case to test the weighted grid:
  
 **Test case — weighted grid:**
 
- <test iamge>
+![Weighted grid test](images/weighted_fifth.png)
   
 **Result:**
 ```
